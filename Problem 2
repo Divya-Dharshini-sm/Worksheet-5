@@ -1,0 +1,124 @@
+#include <iostream>
+#include <string>
+using namespace std;
+
+class Hardware {
+protected:
+    int RAM;               
+    float monitorSize;     
+    string processor;
+    float processorSpeed;  
+
+public:
+    void getHardwareDetails() {
+        cout << "\nEnter Hardware Details:\n";
+        cout << "Enter RAM (in GB): ";
+        cin >> RAM;
+        cout << "Enter Monitor Size (in inches): ";
+        cin >> monitorSize;
+        cout << "Enter Processor Name: ";
+        cin.ignore();
+        getline(cin, processor);
+        cout << "Enter Processor Speed (in GHz): ";
+        cin >> processorSpeed;
+    }
+
+    void displayHardwareDetails() {
+        cout << "\n--- Hardware Details ---";
+        cout << "\nRAM: " << RAM << " GB";
+        cout << "\nMonitor Size: " << monitorSize << " inches";
+        cout << "\nProcessor: " << processor;
+        cout << "\nProcessor Speed: " << processorSpeed << " GHz";
+    }
+};
+
+class Software {
+protected:
+    string ApplicationSoftware[3];
+    string SystemSoftware[4];
+
+public:
+    void getSoftwareDetails() {
+        cout << "\nEnter 3 Application Software names:\n";
+        cin.ignore();
+        for (int i = 0; i < 3; i++) {
+            cout << "  Application Software " << i + 1 << ": ";
+            getline(cin, ApplicationSoftware[i]);
+        }
+
+        cout << "\nEnter 4 System Software names:\n";
+        for (int i = 0; i < 4; i++) {
+            cout << "  System Software " << i + 1 << ": ";
+            getline(cin, SystemSoftware[i]);
+        }
+    }
+
+    void displaySoftwareDetails() {
+        cout << "\n--- Software Details ---\n";
+        cout << "Application Software: ";
+        for (int i = 0; i < 3; i++) {
+            cout << ApplicationSoftware[i];
+            if (i != 2) cout << ", ";
+        }
+
+        cout << "\nSystem Software: ";
+        for (int i = 0; i < 4; i++) {
+            cout << SystemSoftware[i];
+            if (i != 3) cout << ", ";
+        }
+    }
+};
+
+class Dealer : public Hardware, public Software {
+private:
+    string dealerName;
+    string dealerID;
+    float commission;
+
+public:
+    void getDealerDetails() {
+        cout << "\nEnter Dealer Details:\n";
+        cout << "Enter Dealer Name: ";
+        cin.ignore();
+        getline(cin, dealerName);
+        cout << "Enter Dealer ID: ";
+        getline(cin, dealerID);
+        cout << "Enter Commission (%): ";
+        cin >> commission;
+
+        getHardwareDetails();
+        getSoftwareDetails();
+    }
+
+    void displayDealerDetails()
+    {
+        cout << "\n==============================================";
+        cout << "\nDealer Name: " << dealerName;
+        cout << "\nDealer ID: " << dealerID;
+        cout << "\nCommission: " << commission << " %";
+        displayHardwareDetails();
+        displaySoftwareDetails();
+        cout << "\n==============================================\n";
+    }
+};
+
+int main() {
+    int n;
+    cout << "Enter number of dealers: ";
+    cin >> n;
+
+    Dealer d[n]; // Array of Dealer objects
+
+    for (int i = 0; i < n; i++) {
+        cout << "\n--- Enter details for Dealer " << i + 1 << " ---";
+        d[i].getDealerDetails();
+    }
+
+    cout << "\n\n========= DEALER DETAILS REPORT =========\n";
+    for (int i = 0; i < n; i++) {
+        cout << "\nDealer " << i + 1 << " Details:";
+        d[i].displayDealerDetails();
+    }
+
+    return 0;
+}
