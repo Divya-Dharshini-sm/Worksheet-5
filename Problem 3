@@ -1,0 +1,120 @@
+#include <iostream>
+#include <cmath>    
+using namespace std;
+
+class Shape {
+public:
+    virtual void calculate_area() = 0;
+    virtual void calculate_circumference() = 0;
+    virtual ~Shape() {} 
+};
+
+class Square : public Shape {
+private:
+    float a; 
+public:
+    void getData() {
+        cout << "\nEnter side of Square: ";
+        cin >> a;
+    }
+
+    void calculate_area() override {
+        cout << "Area of Square = " << a * a << endl;
+    }
+
+    void calculate_circumference() override {
+        cout << "Circumference of Square = " << 4 * a << endl;
+    }
+};
+
+class Rectangle : public Shape {
+private:
+    float a, b;
+public:
+    void getData() {
+        cout << "\nEnter length and breadth of Rectangle: ";
+        cin >> a >> b;
+    }
+
+    void calculate_area() override {
+        cout << "Area of Rectangle = " << a * b << endl;
+    }
+
+    void calculate_circumference() override {
+        cout << "Circumference of Rectangle = " << 2 * (a + b) << endl;
+    }
+};
+
+class Circle : public Shape {
+private:
+    float r;
+public:
+    void getData() {
+        cout << "\nEnter radius of Circle: ";
+        cin >> r;
+    }
+
+    void calculate_area() override {
+        cout << "Area of Circle = " << M_PI * r * r << endl;
+    }
+
+    void calculate_circumference() override {
+        cout << "Circumference of Circle = " << 2 * M_PI * r << endl;
+    }
+};
+
+class Triangle : public Shape {
+private:
+    float a, b, c; 
+public:
+    void getData() {
+        cout << "\nEnter three sides of Triangle: ";
+        cin >> a >> b >> c;
+    }
+
+    void calculate_area() override {
+        float s = (a + b + c) / 2;
+        float area = sqrt(s * (s - a) * (s - b) * (s - c));
+        cout << "Area of Triangle = " << area << endl;
+    }
+
+    void calculate_circumference() override {
+        cout << "Circumference of Triangle = " << a + b + c << endl;
+    }
+};
+
+
+int main() {
+    Shape* shapePtr; 
+
+    Square sq;
+    Rectangle rec;
+    Circle cir;
+    Triangle tri;
+
+    cout << "----- SQUARE -----";
+    sq.getData();
+    shapePtr = &sq;
+    shapePtr->calculate_area();
+    shapePtr->calculate_circumference();
+
+    cout << "\n----- RECTANGLE -----";
+    rec.getData();
+    shapePtr = &rec;
+    shapePtr->calculate_area();
+    shapePtr->calculate_circumference();
+
+    cout << "\n----- CIRCLE -----";
+    cir.getData();
+    shapePtr = &cir;
+    shapePtr->calculate_area();
+    shapePtr->calculate_circumference();
+
+    cout << "\n----- TRIANGLE -----";
+    tri.getData();
+    shapePtr = &tri;
+    shapePtr->calculate_area();
+    shapePtr->calculate_circumference();
+
+    return 0;
+}
